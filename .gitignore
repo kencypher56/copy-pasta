@@ -1,0 +1,16 @@
+# git
+.git/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# virtual environments
+.env/
+venv/
+
+# system
+.DS_Store
+Thumbs.db
