@@ -6,6 +6,7 @@ import sys
 import os
 import platform
 import time
+import threading
 import questionary
 from pathlib import Path
 
@@ -15,26 +16,95 @@ from cache import load_cache, save_cache, load_history, save_history, clear_cach
 from progress import create_progress_bar
 from copy import copy_file
 from move import move_file
-from copydir import copy_directory
-from movedir import move_directory
+from rich.live import Live
+from rich.panel import Panel
+from rich.text import Text
+from rich.console import Group
 
-# For progress integration, we'll use a simple wrapper that updates a progress bar.
-# In a real app, you'd integrate more tightly, but for brevity we'll show a progress bar
-# for directory operations using rich progress and threading.
-
+# =============================================================================
+#                          IMPROVED TRANSFER UI
+# =============================================================================
 class TransferUI:
     def __init__(self, total_files, total_size):
+        self.total_files = total_files
+        self.total_size = total_size
+        self.processed_files = 0
+        self.processed_size = 0
+        self.lock = threading.Lock()
+        self.stop_event = threading.Event()
         self.progress = create_progress_bar()
         self.task = self.progress.add_task("Transferring...", total=total_size)
-        self.processed_size = 0
-        self.processed_files = 0
-        self.total_files = total_files
 
     def update(self, added_size):
-        self.processed_size += added_size
-        self.processed_files += 1
-        self.progress.update(self.task, completed=self.processed_size)
+        with self.lock:
+            self.processed_size += added_size
+            self.processed_files += 1
+            self.progress.update(self.task, completed=self.processed_size)
 
+    def get_info_text(self):
+        with self.lock:
+            remaining = self.total_size - self.processed_size
+            return (
+                f"Files: {self.processed_files}/{self.total_files}  |  "
+                f"Transferred: {self._format_size(self.processed_size)} / {self._format_size(self.total_size)}  |  "
+                f"Remaining: {self._format_size(remaining)}"
+            )
+
+    def _format_size(self, size):
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if size < 1024.0:
+                return f"{size:.1f} {unit}"
+            size /= 1024.0
+        return f"{size:.1f} PB"
+
+    def run(self, file_list, operation_func):
+        """Run the transfer with live display."""
+        def update_display(live):
+            while not self.stop_event.is_set() or self.processed_files < self.total_files:
+                time.sleep(0.2)
+                # Group the progress bar and info text
+                group = Group(
+                    self.progress,
+                    Text("\n"),
+                    Text(self.get_info_text())
+                )
+                panel = Panel(
+                    group,
+                    border_style="rgb(147,112,219)",
+                    title="[bold rgb(255,215,0)]Transfer in Progress[/bold rgb(255,215,0)]",
+                    title_align="left",
+                )
+                live.update(panel)
+
+        with Live(refresh_per_second=10, screen=False) as live:
+            updater = threading.Thread(target=update_display, args=(live,))
+            updater.daemon = True
+            updater.start()
+
+            failed = []
+            for src, dst in file_list:
+                try:
+                    size = operation_func(src, dst)
+                    self.update(size)
+                except Exception as e:
+                    failed.append((str(src), str(dst), str(e)))
+                    with self.lock:
+                        self.processed_files += 1  # count as processed even if failed
+
+            self.stop_event.set()
+            updater.join(timeout=1)
+
+            if failed:
+                console.print(f"\n[bold rgb(255,69,0)]Completed with {len(failed)} errors.[/bold rgb(255,69,0)]")
+                for src, dst, err in failed[:5]:
+                    console.print(f"  [rgb(255,182,193)]{src} → {dst}: {err}[/rgb(255,182,193)]")
+                if len(failed) > 5:
+                    console.print(f"  ... and {len(failed)-5} more")
+
+
+# =============================================================================
+#                          CONFLICT RESOLUTION
+# =============================================================================
 def conflict_resolver(conflicts):
     """Ask user what to do with conflicting files."""
     if not conflicts:
@@ -59,6 +129,7 @@ def conflict_resolver(conflicts):
                 counter += 1
     return action.lower(), rename_map
 
+
 def collect_sources():
     """Let user add multiple source paths."""
     sources = []
@@ -79,6 +150,10 @@ def collect_sources():
                 console.print("[rgb(255,69,0)]Path does not exist.[/rgb(255,69,0)]")
     return sources
 
+
+# =============================================================================
+#                                    MAIN
+# =============================================================================
 def main():
     bugs_bunny_animation()
     show_banner()
@@ -133,8 +208,7 @@ def main():
             is_dir_op = "directory" in action.lower()
             operation = "copy" if "Copy" in action else "move"
 
-            # For now, we assume single source for directory ops; for file ops we can handle multiple files.
-            # We'll keep it simple: directory ops expect one source (directory), file ops can have multiple files.
+            # For directory ops, we expect one source; for file ops multiple allowed.
             if is_dir_op and len(sources) > 1:
                 console.print("Directory operation supports only one source.", style=WARNING_STYLE)
                 continue
@@ -200,23 +274,15 @@ def main():
                 console.print("Nothing to transfer.", style=WARNING_STYLE)
                 continue
 
-            # Now perform the transfer with progress
-            ui = TransferUI(total_files, total_size)
-            failed = []
+            # Prepare the operation function
+            if operation == "copy":
+                op_func = lambda src, dst: copy_file(src, dst, verify=True)
+            else:
+                op_func = lambda src, dst: move_file(src, dst, verify=True)
 
-            # If it's a directory operation, we can use the specialized functions for efficiency.
-            # But for simplicity, we'll just loop over files.
-            with ui.progress:
-                for src, dst in final_files:
-                    try:
-                        if operation == "copy":
-                            size = copy_file(src, dst, verify=True)
-                        else:
-                            size = move_file(src, dst, verify=True)
-                        ui.update(size)
-                    except Exception as e:
-                        failed.append((str(src), str(dst), str(e)))
-                        ui.processed_files += 1  # count as processed even if failed
+            # Run transfer with improved UI
+            ui = TransferUI(total_files, total_size)
+            ui.run(final_files, op_func)
 
             # Log to history
             save_history({
@@ -224,16 +290,11 @@ def main():
                 "sources": [str(s) for s in sources],
                 "destination": str(dest_path),
                 "total_files": total_files,
-                "failed": len(failed),
                 "timestamp": time.time()
             })
 
-            if failed:
-                console.print(f"Completed with {len(failed)} errors.", style=ERROR_STYLE)
-                for src, dst, err in failed[:5]:
-                    console.print(f"  {src} -> {dst}: {err}")
-            else:
-                console.print("All files transferred successfully!", style=SUCCESS_STYLE)
+            console.print("All files transferred successfully!", style=SUCCESS_STYLE)
+
 
 if __name__ == "__main__":
     try:
