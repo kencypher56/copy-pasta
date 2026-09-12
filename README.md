@@ -40,7 +40,6 @@ snd (((____/     \ \  )
 **A feature-rich, interactive CLI tool for copying and moving files with style.**
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/)
 [![Rich](https://img.shields.io/badge/Rich-13.0%2B-ff69b4?style=for-the-badge)](https://github.com/Textualize/rich)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge&logo=github)](https://github.com/)
@@ -217,16 +216,34 @@ Ensure your terminal supports **true color (RGB)**. Recommended terminals:
 
 ---
 
-## 📄 License
+## Licence
 
-This project is released under the [MIT License](LICENSE). You are free to use, modify, and distribute it as you wish.
+**Free to use. Not open source.**
 
----
+Made by **Kencypher** (Muhammad Waleed Amjad), sole author and copyright
+holder. All rights reserved.
 
-<div align="center">
+The source is readable here because this repository is public. That is not
+permission to reuse it.
 
-Made with ❤️ and a little help from Bugs Bunny 🐰
+**You may** run it for anything including commercial work, read the source to
+learn from it, and link to this repository.
 
-*"Neeaah, What's up Doc!?"*
+**You may not**, without written permission: sell it or charge for access,
+re-upload or mirror it, publish it under another name, claim authorship, or
+copy its code into your own project and release that.
 
-</div>
+This is enforced. Re-uploading this work, repackaging it, stripping the
+author's name from it or passing it off as your own is copyright infringement
+— protected without registration under the Berne Convention — and is pursued
+with DMCA takedowns, platform reports for impersonation, and legal proceedings
+where the infringement is commercial, repeated, or involves falsely claiming
+authorship.
+
+Asking first is free, and the answer is usually yes: **kencypher56@gmail.com**
+
+Any third-party components remain under their own licences, held by their own
+authors.
+
+See [LICENSE.txt](LICENSE.txt) · Everything else: <https://cypherstore.netlify.app>
+
