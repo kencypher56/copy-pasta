@@ -217,9 +217,24 @@ Ensure your terminal supports **true color (RGB)**. Recommended terminals:
 
 ---
 
-## 📄 License
+## 📄 Licence
 
-This project is released under the [MIT License](LICENSE). You are free to use, modify, and distribute it as you wish.
+**Free to use. Not open source.**
+
+Made by Kencypher, sole author and copyright holder. The source is here to
+read, and reading it is welcome — that is not an open-source licence.
+
+You may run it on your own machines, use it for anything including
+commercial work, modify your own copy, and pass an unmodified copy to
+someone else free of charge.
+
+You may not sell it, re-upload or mirror it, publish a fork or a modified
+version, copy its code into another project, rebrand it, or present it as
+your own work. **That is copyright infringement, and it is pursued.**
+
+Ask first at kencypher56@gmail.com — the answer is usually yes.
+
+See [LICENSE.txt](LICENSE.txt) for the full terms.
 
 ---
 
