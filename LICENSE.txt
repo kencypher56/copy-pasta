@@ -1,94 +1,44 @@
-═══════════════════════════════════════════════════════════════════════════
-  LICENCE
-  Copyright (c) 2026 Kencypher (Muhammad Waleed Amjad).
-  ALL RIGHTS RESERVED.
-═══════════════════════════════════════════════════════════════════════════
+CYPHER PROJECTS - LICENCE
+Copyright (c) 2026 Kencypher (Muhammad Waleed Amjad). All rights reserved.
 
-FREE TO USE. NOT OPEN SOURCE. NOT YOURS TO REPUBLISH.
+FREE TO USE. NOT OPEN SOURCE.
 
-This software was written by Kencypher, who is its sole author and sole
-copyright holder. It costs you nothing. That is a gift, not a transfer of
-ownership, and not a grant of any right beyond the ones written below.
-
-The source code is here for you to read, and reading it is welcome. That
-is not the same thing as an open-source licence: no right to redistribute
-it, to modify and publish the result, to relicense it, or to reuse it in
-your own work is granted by its being readable.
-
+This project was written by Kencypher, sole author and sole copyright holder.
+The source is readable here because the repository is public. Being able to
+read it is not permission to reuse it.
 
 YOU MAY
-─────────────────────────────────────────────────────────────────────────────
-  • Read the source, study it, and learn from it.
-  • Install and run it on as many of your own machines as you like.
-  • Use it for anything, including commercial work.
-  • Modify your own copy, for your own use.
-  • Give an unmodified copy to another person, free of charge, with this
-    notice intact.
+  - Run it, for anything, including commercial work.
+  - Read the source to learn from it.
+  - Link to this repository.
 
+YOU MAY NOT, WITHOUT WRITTEN PERMISSION
+  - Sell it, or charge anyone for access to it.
+  - Re-upload, mirror or redistribute it, in whole or in part.
+  - Publish it under another name, or present it as your own work.
+  - Claim authorship of it.
+  - Copy its code into your own project and release that.
+  - Remove or alter this notice, or the author's name anywhere it appears.
 
-YOU MAY NOT, WITHOUT WRITTEN PERMISSION FROM KENCYPHER
-─────────────────────────────────────────────────────────────────────────────
-  • Sell it, rent it, license it, or charge anyone for access to it.
-  • Re-upload, mirror, or redistribute it anywhere — no package index, no
-    app store, no download site, no file host, no repackaged build.
-  • Publish a modified version, a fork, or a derivative work.
-  • Publish it under another name, or present it as your own work.
-  • Claim authorship of it, in whole or in part.
-  • Rebrand it: change the name, the icon, the artwork or the credits.
-  • Copy its code into another project, published or otherwise.
-  • Train a machine-learning model on it or its assets.
-  • Remove or alter this notice, or the author's name anywhere it appears.
-
-Permission is asked for, not assumed. Write to kencypher56@gmail.com.
-
+Permission is asked for, not assumed: kencypher56@gmail.com
+The answer is usually yes.
 
 IF YOU BREAK THIS
-─────────────────────────────────────────────────────────────────────────────
-  Copyright in this software is owned by Kencypher and is protected without
-  registration under the Berne Convention, to which more than 180 countries
-  are party.
-
-  Publishing this code elsewhere, repackaging it, stripping the author's
-  name from it, or passing it off as your own work is copyright
-  infringement. It is not a grey area, it is not excused by the software
-  being free, and it is not excused by the source being readable.
-
-  Any such use is pursued. That includes, without limitation:
-
-    • DMCA takedown notices to the host, the CDN, the package index and
-      the search engine carrying the material;
-    • reports to the platform for impersonation and for passing off;
-    • and where the infringement is commercial, repeated, or involves
-      falsely claiming authorship, legal proceedings for damages in the
-      appropriate jurisdiction.
-
-  Permission ends automatically the moment these terms are broken, and any
-  copy you hold after that point is an unlicensed copy.
-
-  Asking first is free, and the answer is usually yes.
-
+  Copyright in this work belongs to Kencypher and is protected without
+  registration under the Berne Convention. Re-uploading it, repackaging it,
+  stripping the author's name from it or passing it off as your own is
+  copyright infringement, and is pursued: DMCA takedowns to the host and
+  the platform, reports for impersonation, and legal proceedings where the
+  infringement is commercial, repeated, or involves falsely claiming
+  authorship.
 
 THIRD-PARTY COMPONENTS
-─────────────────────────────────────────────────────────────────────────────
-  Libraries, models and assets by other authors keep their own licences,
-  which are not affected by this notice and are not superseded by it.
-
-
-WHERE TO GET IT
-─────────────────────────────────────────────────────────────────────────────
-  There is one official source:  https://cypherstore.vercel.app
-
-  A copy from anywhere else is not one Kencypher published. Nothing about
-  its contents is guaranteed, and it is not covered by this licence.
-
+  This project may depend on software written by others - those components
+  remain under their own licences, held by their own authors. Nothing here
+  claims any right over them.
 
 NO WARRANTY
-─────────────────────────────────────────────────────────────────────────────
-  Provided as is, without warranty of any kind, express or implied,
-  including but not limited to merchantability, fitness for a particular
-  purpose and non-infringement. The author is not liable for any claim,
-  damages or other liability arising from the software or its use.
+  Provided as is, without warranty of any kind. The author is not liable for
+  any claim or damages arising from the software or its use.
 
-═══════════════════════════════════════════════════════════════════════════
-  Free to use. Not free to take. — Kencypher, 2026
-═══════════════════════════════════════════════════════════════════════════
+Downloads and the rest of the work: https://cypherstore.vercel.app
